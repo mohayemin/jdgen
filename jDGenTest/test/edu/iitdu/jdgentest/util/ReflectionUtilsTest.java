@@ -25,7 +25,7 @@ public class ReflectionUtilsTest {
 	@Test
 	public void testGetSettersWithPerson() {
 		List<Method> actual = ReflectionUtils.getSetters(personType);
-
+		
 		assertEquals(1, actual.size());
 	}
 

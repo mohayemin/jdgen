@@ -17,7 +17,7 @@ public class DefaultObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
 	@Override
 	public T build() {
 		T object = construct();
-
+		callMethods(object);
 		return object;
 	}
 

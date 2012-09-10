@@ -1,9 +1,9 @@
 package edu.iitdu.jdgen.builder.implementation;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
+import edu.iitdu.jdgen.reflection.MethodInvoker;
 
 /**
  * @author Mohayeminul Islam
@@ -22,9 +22,9 @@ public class DefaultObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
 	}
 
 	@Override
-	protected void callMethods(T object) {
+	protected void callMethods(T object) throws JDGenRuntimeException{
 		try {
-			for (Method method : methods) {
+			for (MethodInvoker<T> method : methods) {
 				method.invoke(object);
 			}
 		} catch (IllegalAccessException e) {
@@ -38,15 +38,8 @@ public class DefaultObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
 
 	@Override
 	protected T construct() {
-		Class<?>[] parameterTypes = constructor.getParameterTypes();
-		Object[] parameters = new Object[parameterTypes.length];
-
 		try {
-			for (int i = 0; i < parameters.length; i++) {
-				parameters[i] = parameterTypes[i].newInstance();
-			}
-
-			T object = constructor.newInstance(parameters);
+			T object = constructor.invoke();
 
 			return object;
 		} catch (InstantiationException e) {

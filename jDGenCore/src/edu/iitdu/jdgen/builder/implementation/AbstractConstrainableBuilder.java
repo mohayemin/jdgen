@@ -1,50 +1,46 @@
 package edu.iitdu.jdgen.builder.implementation;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuilder;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
+import edu.iitdu.jdgen.reflection.ConstructorInvoker;
+import edu.iitdu.jdgen.reflection.MethodInvoker;
 
 public abstract class AbstractConstrainableBuilder<T> implements
 	ConstrainableBuilder<T> {
 
 	private Class<T> type;
-	protected Constructor<T> constructor;
-	protected List<Method> methods;
+	protected ConstructorInvoker<T> constructor;
+	protected List<MethodInvoker<T>> methods;
 
 	public AbstractConstrainableBuilder(Class<T> type) {
 		this.type = type;
 		try {
-			constructor = type.getConstructor();
+			constructor = new ConstructorInvoker<T>(type.getConstructor());
 		} catch (Exception e) {
+			constructor = null;
 		}
 
-		methods = new ArrayList<Method>();
+		methods = new ArrayList<MethodInvoker<T>>();
 	}
 
 	@Override
-	public ConstrainableBuilder<T> withConstructor(Constructor<T> constructor) {
-		this.constructor = constructor;
-		return this;
-	}
-
-	@Override
-	public ConstrainableBuilder<T> with(Method method) {
+	public ConstrainableBuilder<T> with(MethodInvoker<T> method) {
 		methods.add(method);
+
 		return this;
 	}
 
 	@Override
 	public ConstrainableBuilder<T> with(String methodName,
-		Class<?>... parameterTypes) {
+		Object... arguments) throws JDGenRuntimeException {
 		try {
-			Method method = type.getMethod(methodName, parameterTypes);
-
-			return with(method);
+			MethodInvoker<T> invoker =
+				new MethodInvoker<T>(type, methodName, arguments);
+			return with(invoker);
 		} catch (NoSuchMethodException e) {
 			throw new JDGenRuntimeException(e);
 		} catch (SecurityException e) {
@@ -53,9 +49,18 @@ public abstract class AbstractConstrainableBuilder<T> implements
 	}
 
 	@Override
-	public ConstrainableBuilder<T> withConstructor(Class<?>... parameterTypes) {
+	public ConstrainableBuilder<T> withConstructor(
+		ConstructorInvoker<T> constructor) {
+		this.constructor = constructor;
+		return this;
+	}
+
+	@Override
+	public ConstrainableBuilder<T> withConstructor(Object... arguments)
+		throws JDGenRuntimeException {
 		try {
-			Constructor<T> constructor = type.getConstructor(parameterTypes);
+			ConstructorInvoker<T> constructor =
+				new ConstructorInvoker<T>(type, arguments);
 			return withConstructor(constructor);
 		} catch (NoSuchMethodException e) {
 			throw new JDGenRuntimeException(e);

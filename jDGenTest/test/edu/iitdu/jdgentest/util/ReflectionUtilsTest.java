@@ -1,12 +1,10 @@
 package edu.iitdu.jdgentest.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,7 +22,7 @@ public class ReflectionUtilsTest {
 		personType = Person.class;
 		employeeType = Employee.class;
 	}
-
+	
 	@Test
 	public void testGetPrimitiveTypes() {
 		Object[] wrapperValues = {
@@ -76,79 +74,5 @@ public class ReflectionUtilsTest {
 		assertTrue(classes[3].equals(Integer.class));
 	}
 
-	@Test
-	public void testGetTypesWithPrimitiveWrapper(){
-		Assert.fail("Not impl");
-	}
 
-	@Test
-	public void testHasParameter() throws NoSuchMethodException,
-		SecurityException {
-		Method setName = personType.getMethod("setName", String.class);
-		Method setButNoParameter = employeeType.getMethod("setButNoParameter");
-
-		assertTrue(ReflectionUtils.hasParameter(setName));
-		assertFalse(ReflectionUtils.hasParameter(setButNoParameter));
-	}
-
-	@Test
-	public void testIsSetter() throws NoSuchMethodException, SecurityException {
-		Method setName = personType.getMethod("setName", String.class);
-		Method setButNoParameter = employeeType.getMethod("setButNoParameter");
-
-		assertTrue(ReflectionUtils.isSetter(setName));
-		assertFalse(ReflectionUtils.isSetter(setButNoParameter));
-	}
-
-	@Test
-	public void testResolveMethodWithParameterTypeDifference()
-		throws NoSuchMethodException, SecurityException {
-		List<Method> methods = new ArrayList<Method>();
-		methods.add(String.class.getMethod("indexOf", int.class));
-		methods.add(String.class.getMethod("indexOf", String.class));
-		
-		Method resolved = ReflectionUtils.resolveMethodWithParameterTypeDifference(methods, "Hello");
-		assertEquals(methods.get(1), resolved);
-		
-		resolved = ReflectionUtils.resolveMethodWithParameterTypeDifference(methods, 34);
-		assertEquals(methods.get(0), resolved);
-	}
-
-	@Test
-	public void testSearchMethod() throws NoSuchMethodException,
-		SecurityException {
-		Method actual, expected;
-
-		actual = ReflectionUtils.searchMethod(String.class, "charAt", 3);
-		expected = String.class.getMethod("charAt", int.class);
-		assertEquals(expected, actual);
-
-		actual = ReflectionUtils.searchMethod(String.class, "indexOf", 'c');
-		expected = String.class.getMethod("indexOf", char.class);
-		assertEquals(expected, actual);
-	}
-	
-	@Test
-	public void testUnbox() {
-		Class<?> unboxed =
-			ReflectionUtils.unbox(Integer.class);
-		assertEquals(int.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Byte.class);
-		assertEquals(byte.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Short.class);
-		assertEquals(short.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Long.class);
-		assertEquals(long.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Double.class);
-		assertEquals(double.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Float.class);
-		assertEquals(float.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Character.class);
-		assertEquals(char.class, unboxed);
-		unboxed = ReflectionUtils.unbox(Boolean.class);
-		assertEquals(boolean.class, unboxed);
-
-		unboxed = ReflectionUtils.unbox(StringBuilder.class);
-		assertEquals(StringBuilder.class, unboxed);
-	}
 }

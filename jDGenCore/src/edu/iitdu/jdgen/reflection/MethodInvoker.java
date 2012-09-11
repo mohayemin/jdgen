@@ -24,7 +24,7 @@ public class MethodInvoker<T> implements Invocable<T> {
 		this.arguments = arguments;
 	}
 
-	public Object invoke(Object invoker) throws IllegalAccessException,
+	public Object invoke(T invoker) throws IllegalAccessException,
 		IllegalArgumentException, InvocationTargetException {
 		return method.invoke(invoker, arguments);
 	}

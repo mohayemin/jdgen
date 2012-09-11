@@ -1,5 +1,6 @@
 package edu.iitdu.jdgen.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class ReflectionUtils {
 
 	public static Class<?>[] getPrimitiveTypes(Object[] wrapperValues) {
 		Class<?>[] wrapperTypes = getTypes(wrapperValues);
-		
+
 		return WrapperUtils.toPrimitiveArray(wrapperTypes);
 	}
 
@@ -38,9 +39,17 @@ public class ReflectionUtils {
 		return types;
 	}
 
-	public static Method searchBestMatchMethod(Class<?> type,
-		String methodName, Class<?>... parameterTypes) throws NoSuchMethodException {
+	public static Method findBestMatchMethod(Class<?> type,
+		String methodName, Object... arguments) throws NoSuchMethodException {
+		Class<?>[] parameterTypes = getTypes(arguments);
 
 		return MethodUtils.findBestMatch(type, methodName, parameterTypes);
+	}
+
+	public static <T> Constructor<T> findBestMatchConstructor(Class<T> type,
+		Object... arguments) throws NoSuchMethodException {
+		Class<?>[] parameterTypes = getTypes(arguments);
+
+		return ConstructorUtils.findBestMatch(type, parameterTypes);
 	}
 }

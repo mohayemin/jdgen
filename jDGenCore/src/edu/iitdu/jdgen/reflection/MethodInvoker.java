@@ -2,6 +2,7 @@ package edu.iitdu.jdgen.reflection;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import edu.iitdu.jdgen.util.ReflectionUtils;
 
@@ -15,8 +16,7 @@ public class MethodInvoker<T> implements Invocable<T> {
 
 	public MethodInvoker(Class<T> type, String methodName,
 		Object... arguments) throws NoSuchMethodException, SecurityException {
-		
-		method = type.getMethod(methodName, ReflectionUtils.getTypes(arguments));
+		this(ReflectionUtils.findBestMatchMethod(type, methodName, arguments), arguments);
 	}
 
 	public MethodInvoker(Method method, Object... arguments) {
@@ -27,5 +27,10 @@ public class MethodInvoker<T> implements Invocable<T> {
 	public Object invoke(Object invoker) throws IllegalAccessException,
 		IllegalArgumentException, InvocationTargetException {
 		return method.invoke(invoker, arguments);
+	}
+	
+	@Override
+	public String toString() {
+		return "Name: " + method.getName() + " Arguments: " + Arrays.toString(arguments);
 	}
 }

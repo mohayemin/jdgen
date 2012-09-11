@@ -20,7 +20,7 @@ public class MethodUtils {
 					bestMatch =
 						type.getMethod(name,
 							WrapperUtils.toPrimitiveArray(parameterTypes));
-				} catch (SecurityException e2) {
+				} catch (NoSuchMethodException e2) {
 					throw e;
 				}
 			}

@@ -11,10 +11,9 @@ public interface ConstrainableBuilder<T> extends Buildable<T> {
 	public ConstrainableBuilder<T> with(MethodInvoker<T> methodCall);
 	
 	public ConstrainableBuilder<T> with(String methodName,
-		Object... arguments) throws NoSuchMethodException, SecurityException ;
+		Object... arguments);
 
 	public ConstrainableBuilder<T> withConstructor(ConstructorInvoker<T> constructorInvoker);
 	
-	public ConstrainableBuilder<T> withConstructor(Object... arguments)
-		throws NoSuchMethodException, SecurityException;
+	public ConstrainableBuilder<T> withConstructor(Object... arguments);
 }

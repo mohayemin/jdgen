@@ -4,6 +4,14 @@ public class Product {
 	private int productId;
 	private boolean sold;
 
+	public Product() {
+		this(0);
+	}
+	
+	public Product(int productId) {
+		setProductId(productId);
+	}
+	
 	public void sell() {
 		sold = true;
 	}

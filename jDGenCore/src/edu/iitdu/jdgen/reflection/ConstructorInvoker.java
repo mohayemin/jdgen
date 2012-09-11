@@ -10,9 +10,8 @@ public class ConstructorInvoker<T> implements Invocable<T> {
 	private Object[] arguments;
 
 	public ConstructorInvoker(Class<T> type, Object... arguments)
-		throws NoSuchMethodException, SecurityException {
-		this(type.getConstructor(ReflectionUtils.getTypes(arguments)),
-			arguments);
+		throws NoSuchMethodException {
+		this(ReflectionUtils.findBestMatchConstructor(type, arguments), arguments);
 	}
 
 	public ConstructorInvoker(Constructor<T> constructor, Object... arguments) {

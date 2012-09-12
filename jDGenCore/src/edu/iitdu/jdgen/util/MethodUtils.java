@@ -28,14 +28,40 @@ public class MethodUtils {
 
 		return bestMatch;
 	}
-	
 
 	public static boolean hasParameter(Method method) {
 		return method.getParameterTypes().length > 0;
 	}
 
 	public static boolean isSetter(Method method) {
-		return method.getName().startsWith("set") && hasParameter(method);
+		return isLikeSetter(method.getName())
+				&& hasParameter(method);
+	}
+
+	private static boolean isLikeSetter(String methodName) {
+		return methodName.startsWith("set")
+				&& Character.isUpperCase(methodName.charAt(3));
+	}
+
+	public static <U> Method findSetter(Class<?> type,
+		String setterVariableName)
+		throws NoSuchMethodException {
+		String setterName =
+			"set" + Character.toUpperCase(setterVariableName.charAt(0))
+				+ setterVariableName.substring(1);
+
+		Method setter = null;
+		for (Method method : type.getMethods()) {
+			if (method.getName().equals(setterName)) {
+				setter = method;
+				break;
+			}
+		}
+		if (setter == null) {
+			throw new NoSuchMethodException(setterName);
+		}
+		
+		return setter;
 	}
 
 }

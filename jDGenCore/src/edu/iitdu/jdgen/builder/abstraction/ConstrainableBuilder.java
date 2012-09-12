@@ -17,5 +17,5 @@ public interface ConstrainableBuilder<T> extends Buildable<T> {
 	
 	public ConstrainableBuilder<T> construct(Object... arguments);
 	
-	
+	public <U> ConstrainableBuilder<T> set(String setterName, U value);
 }

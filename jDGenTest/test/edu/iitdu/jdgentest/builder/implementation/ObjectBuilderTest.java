@@ -76,4 +76,13 @@ public class ObjectBuilderTest {
 		assertEquals(10, product.getProductId());
 	}
 
+	@Test
+	public void testSet() {
+		ConstrainableBuilder<Product> builder =
+			new ObjectBuilder<>(Product.class).set("productId", 10);
+		
+		Product product = builder.build();
+		
+		assertEquals(10, product.getProductId());
+	}
 }

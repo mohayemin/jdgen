@@ -17,38 +17,43 @@ public class ObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
 	@Override
 	public T build() {
 		T object = construct();
+		callSetters(object);
 		callMethods(object);
 		return object;
 	}
 
 	@Override
-	protected void callMethods(T object) throws JDGenRuntimeException{
+	protected void callMethods(T object) throws JDGenRuntimeException {
 		try {
 			for (MethodInvoker<T> method : methods) {
 				method.invoke(object);
 			}
-		} catch (IllegalAccessException e) {
-			throw new JDGenRuntimeException(e);
-		} catch (IllegalArgumentException e) {
-			throw new JDGenRuntimeException(e);
-		} catch (InvocationTargetException e) {
+		} catch (IllegalAccessException | IllegalArgumentException
+			| InvocationTargetException e) {
 			throw new JDGenRuntimeException(e);
 		}
 	}
 
 	@Override
-	protected T construct() {
+	protected T construct() throws JDGenRuntimeException {
 		try {
 			T object = constructor.invoke();
 
 			return object;
-		} catch (InstantiationException e) {
+		} catch (InstantiationException | IllegalAccessException
+			| IllegalArgumentException | InvocationTargetException e) {
 			throw new JDGenRuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new JDGenRuntimeException(e);
-		} catch (IllegalArgumentException e) {
-			throw new JDGenRuntimeException(e);
-		} catch (InvocationTargetException e) {
+		}
+	}
+
+	@Override
+	protected void callSetters(T object) throws JDGenRuntimeException {
+		try {
+			for (MethodInvoker<T> setter : setters) {
+				setter.invoke(object);
+			}
+		} catch (IllegalAccessException | IllegalArgumentException
+			| InvocationTargetException e) {
 			throw new JDGenRuntimeException(e);
 		}
 	}

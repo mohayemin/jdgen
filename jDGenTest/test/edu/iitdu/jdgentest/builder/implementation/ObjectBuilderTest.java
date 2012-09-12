@@ -7,17 +7,17 @@ import org.junit.Test;
 
 import edu.iitdu.jdgen.builder.abstraction.Buildable;
 import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuilder;
-import edu.iitdu.jdgen.builder.implementation.DefaultObjectBuilder;
+import edu.iitdu.jdgen.builder.implementation.ObjectBuilder;
 import edu.iitdu.jdgen.reflection.ConstructorInvoker;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 import edu.iitdu.jdgentest.testclasses.Product;
 
-public class DefaultObjectBuilderTest {
+public class ObjectBuilderTest {
 
 	@Test
 	public void testBuild() {
-		DefaultObjectBuilder<Product> builder =
-			new DefaultObjectBuilder<>(Product.class);
+		ObjectBuilder<Product> builder =
+			new ObjectBuilder<>(Product.class);
 
 		Product product = builder.build();
 
@@ -26,22 +26,22 @@ public class DefaultObjectBuilderTest {
 	}
 
 	@Test
-	public void testWithConstructor_Arguments() {
+	public void testConstruct_Arguments() {
 		Buildable<Product> builder =
-			new DefaultObjectBuilder<>(Product.class).withConstructor(5);
+			new ObjectBuilder<>(Product.class).construct(5);
 
 		Product product = builder.build();
 		assertEquals(5, product.getProductId());
 	}
 
 	@Test
-	public void testWithConstructor_ConstructorInvoker()
+	public void testConstructor_ConstructorInvoker()
 		throws NoSuchMethodException {
 		ConstructorInvoker<Product> invoker =
 			new ConstructorInvoker<>(Product.class, 5);
 
 		Buildable<Product> builder =
-			new DefaultObjectBuilder<>(Product.class).withConstructor(invoker);
+			new ObjectBuilder<>(Product.class).construct(invoker);
 
 		Product product = builder.build();
 
@@ -56,7 +56,7 @@ public class DefaultObjectBuilderTest {
 		MethodInvoker<Product> sellInvoker =
 			new MethodInvoker<>(Product.class, "sell");
 		ConstrainableBuilder<Product> builder =
-			new DefaultObjectBuilder<>(Product.class).with(setProductIdInvoker)
+			new ObjectBuilder<>(Product.class).with(setProductIdInvoker)
 				.with(sellInvoker);
 
 		Product product = builder.build();
@@ -67,7 +67,7 @@ public class DefaultObjectBuilderTest {
 	@Test
 	public void testWith_MethodName() {
 		ConstrainableBuilder<Product> builder =
-			new DefaultObjectBuilder<Product>(Product.class).with("sell").with(
+			new ObjectBuilder<Product>(Product.class).with("sell").with(
 				"setProductId", 10);
 
 		Product product = builder.build();

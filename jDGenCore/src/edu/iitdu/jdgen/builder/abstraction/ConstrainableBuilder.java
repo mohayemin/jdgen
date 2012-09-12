@@ -13,7 +13,9 @@ public interface ConstrainableBuilder<T> extends Buildable<T> {
 	public ConstrainableBuilder<T> with(String methodName,
 		Object... arguments);
 
-	public ConstrainableBuilder<T> withConstructor(ConstructorInvoker<T> constructorInvoker);
+	public ConstrainableBuilder<T> construct(ConstructorInvoker<T> constructorInvoker);
 	
-	public ConstrainableBuilder<T> withConstructor(Object... arguments);
+	public ConstrainableBuilder<T> construct(Object... arguments);
+	
+	
 }

@@ -49,25 +49,27 @@ public abstract class AbstractConstrainableBuilder<T> implements
 	}
 
 	@Override
-	public ConstrainableBuilder<T> withConstructor(
+	public ConstrainableBuilder<T> construct(
 		ConstructorInvoker<T> constructor) {
 		this.constructor = constructor;
 		return this;
 	}
 
 	@Override
-	public ConstrainableBuilder<T> withConstructor(Object... arguments)
+	public ConstrainableBuilder<T> construct(Object... arguments)
 		throws JDGenRuntimeException {
 		try {
 			ConstructorInvoker<T> constructor =
 				new ConstructorInvoker<T>(type, arguments);
-			return withConstructor(constructor);
+			return construct(constructor);
 		} catch (NoSuchMethodException e) {
 			throw new JDGenRuntimeException(e);
 		} catch (SecurityException e) {
 			throw new JDGenRuntimeException(e);
 		}
 	}
+	
+	
 
 	protected abstract void callMethods(T obj) throws IllegalAccessException,
 		IllegalArgumentException, InvocationTargetException;

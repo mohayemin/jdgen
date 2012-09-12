@@ -8,9 +8,9 @@ import edu.iitdu.jdgen.reflection.MethodInvoker;
 /**
  * @author Mohayeminul Islam
  */
-public class DefaultObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
+public class ObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
 
-	public DefaultObjectBuilder(Class<T> type) {
+	public ObjectBuilder(Class<T> type) {
 		super(type);
 	}
 

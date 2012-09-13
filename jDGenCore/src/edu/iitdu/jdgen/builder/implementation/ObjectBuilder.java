@@ -14,6 +14,11 @@ public class ObjectBuilder<T> extends AbstractConstrainableBuilder<T> {
 		super(type);
 	}
 
+	/**
+	 * While building, first the object is instantiated.
+	 * Then the setters are called.
+	 * And then other methods are called.
+	 */
 	@Override
 	public T build() {
 		T object = construct();

@@ -11,11 +11,12 @@ import edu.iitdu.jdgen.builder.implementation.ObjectBuilder;
 import edu.iitdu.jdgen.reflection.ConstructorInvoker;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 import edu.iitdu.jdgentest.testclasses.Product;
+import edu.iitdu.jdgentest.testclasses.Rectangle;
 
 public class ObjectBuilderTest {
 
 	@Test
-	public void testBuild() {
+	public void testBuild_Simple() {
 		ObjectBuilder<Product> builder =
 			new ObjectBuilder<>(Product.class);
 
@@ -23,6 +24,27 @@ public class ObjectBuilderTest {
 
 		assertEquals(0, product.getProductId());
 		assertEquals(false, product.isSold());
+	}
+
+	@Test
+	public void testBuild_Complex() {
+		ConstrainableBuilder<Rectangle> builder =
+			new ObjectBuilder<>(Rectangle.class).construct(10, 20).execute(
+				"scale", 2.5);
+
+		System.out.println("**First Build**");
+		Rectangle rect = builder.build();
+		assertEquals((Integer) 25, rect.getWidth());
+		assertEquals((Integer) 50, rect.getHeight());
+
+		System.out.println("**Second Build**");
+		builder =
+			new ObjectBuilder<>(Rectangle.class).construct(10)
+				.execute("resize", 12, 20).execute("scale", .5).set("width", 30);
+
+		rect = builder.build();
+		assertEquals((Integer) 6, rect.getWidth());
+		assertEquals((Integer) 10, rect.getHeight());
 	}
 
 	@Test
@@ -56,8 +78,8 @@ public class ObjectBuilderTest {
 		MethodInvoker<Product> sellInvoker =
 			new MethodInvoker<>(Product.class, "sell");
 		ConstrainableBuilder<Product> builder =
-			new ObjectBuilder<>(Product.class).with(setProductIdInvoker)
-				.with(sellInvoker);
+			new ObjectBuilder<>(Product.class).execute(setProductIdInvoker)
+				.execute(sellInvoker);
 
 		Product product = builder.build();
 		assertTrue(product.isSold());
@@ -67,7 +89,7 @@ public class ObjectBuilderTest {
 	@Test
 	public void testWith_MethodName() {
 		ConstrainableBuilder<Product> builder =
-			new ObjectBuilder<Product>(Product.class).with("sell").with(
+			new ObjectBuilder<Product>(Product.class).execute("sell").execute(
 				"setProductId", 10);
 
 		Product product = builder.build();
@@ -80,9 +102,9 @@ public class ObjectBuilderTest {
 	public void testSet() {
 		ConstrainableBuilder<Product> builder =
 			new ObjectBuilder<>(Product.class).set("productId", 10);
-		
+
 		Product product = builder.build();
-		
+
 		assertEquals(10, product.getProductId());
 	}
 }

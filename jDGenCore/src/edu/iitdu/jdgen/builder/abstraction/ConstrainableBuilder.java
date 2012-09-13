@@ -8,9 +8,9 @@ import edu.iitdu.jdgen.reflection.MethodInvoker;
  */
 public interface ConstrainableBuilder<T> extends Buildable<T> {
 	
-	public ConstrainableBuilder<T> with(MethodInvoker<T> methodCall);
+	public ConstrainableBuilder<T> execute(MethodInvoker<T> methodCall);
 	
-	public ConstrainableBuilder<T> with(String methodName,
+	public ConstrainableBuilder<T> execute(String methodName,
 		Object... arguments);
 
 	public ConstrainableBuilder<T> construct(ConstructorInvoker<T> constructorInvoker);

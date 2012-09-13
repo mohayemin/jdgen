@@ -31,19 +31,19 @@ public abstract class AbstractConstrainableBuilder<T> implements
 	}
 
 	@Override
-	public ConstrainableBuilder<T> with(MethodInvoker<T> method) {
+	public ConstrainableBuilder<T> execute(MethodInvoker<T> method) {
 		methods.add(method);
 
 		return this;
 	}
 
 	@Override
-	public ConstrainableBuilder<T> with(String methodName,
+	public ConstrainableBuilder<T> execute(String methodName,
 		Object... arguments) throws JDGenRuntimeException {
 		try {
 			MethodInvoker<T> invoker =
 				new MethodInvoker<T>(type, methodName, arguments);
-			return with(invoker);
+			return execute(invoker);
 		} catch (NoSuchMethodException e) {
 			throw new JDGenRuntimeException(e);
 		} catch (SecurityException e) {

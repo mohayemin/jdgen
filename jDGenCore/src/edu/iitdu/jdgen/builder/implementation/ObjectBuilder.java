@@ -23,20 +23,12 @@ public class ObjectBuilder<T> implements ConstrainableBuilder<T> {
 
 	public ObjectBuilder(Class<T> type) {
 		this.type = type;
-		try {
-			constructor = new ConstructorInvoker<T>(type.getConstructor());
-		} catch (Exception e) {
-			constructor = null;
-		}
-
 		methods = new LinkedList<>();
 		setters = new LinkedList<>();
 	}
 
-	@Override
-	public ConstrainableBuilder<T> execute(MethodInvoker<T> method) {
+	protected ConstrainableBuilder<T> execute(MethodInvoker<T> method) {
 		methods.add(method);
-
 		return this;
 	}
 
@@ -49,13 +41,10 @@ public class ObjectBuilder<T> implements ConstrainableBuilder<T> {
 			return execute(invoker);
 		} catch (NoSuchMethodException e) {
 			throw new JDGenRuntimeException(e);
-		} catch (SecurityException e) {
-			throw new JDGenRuntimeException(e);
 		}
 	}
 
-	@Override
-	public ConstrainableBuilder<T> construct(
+	protected ConstrainableBuilder<T> construct(
 		ConstructorInvoker<T> constructor) {
 		this.constructor = constructor;
 		return this;

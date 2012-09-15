@@ -9,7 +9,6 @@ import edu.iitdu.jdgen.builder.abstraction.Buildable;
 import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuilder;
 import edu.iitdu.jdgen.builder.implementation.ObjectBuilder;
 import edu.iitdu.jdgen.reflection.ConstructorInvoker;
-import edu.iitdu.jdgen.reflection.MethodInvoker;
 import edu.iitdu.jdgentest.testclasses.Product;
 import edu.iitdu.jdgentest.testclasses.Rectangle;
 
@@ -69,7 +68,7 @@ public class ObjectBuilderTest {
 
 		assertEquals(5, product.getProductId());
 	}
-
+/*
 	@Test
 	public void testWith_MethodInvoker() throws NoSuchMethodException,
 		SecurityException {
@@ -84,7 +83,7 @@ public class ObjectBuilderTest {
 		Product product = builder.build();
 		assertTrue(product.isSold());
 		assertEquals(10, product.getProductId());
-	}
+	}*/
 
 	@Test
 	public void testWith_MethodName() {

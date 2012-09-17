@@ -1,38 +1,37 @@
 package edu.iitdu.jdgen.builder.implementation;
 
-import java.lang.reflect.InvocationTargetException;
-
 import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuilder;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
-import edu.iitdu.jdgen.reflection.MethodInvoker;
 
 /**
  * @author Mohayeminul Islam
  */
 public class ObjectBuilder<T> implements ConstrainableBuilder<T> {
-	private BuilderConstraintsImpl<T> implemantation;
+	private BuilderConstraintsImpl<T> constraints;
+	private BuilderImpl<T> builder;
 
 	public ObjectBuilder(Class<T> type) {
-		implemantation = new BuilderConstraintsImpl<>(type);
+		constraints = new BuilderConstraintsImpl<>(type);
+		builder = new BuilderImpl<>(constraints);
 	}
 
 	@Override
 	public ConstrainableBuilder<T> execute(String methodName,
 		Object... arguments) throws JDGenRuntimeException {
-		implemantation.execute(methodName, arguments);
+		constraints.execute(methodName, arguments);
 		return this;
 	}
 
 	@Override
 	public ConstrainableBuilder<T> construct(Object... arguments)
 		throws JDGenRuntimeException {
-		implemantation.construct(arguments);
+		constraints.construct(arguments);
 		return this;
 	}
 
 	@Override
 	public <U> ConstrainableBuilder<T> set(String setterVariableName, U value) {
-		implemantation.set(setterVariableName, value);
+		constraints.set(setterVariableName, value);
 		return this;
 	}
 
@@ -43,43 +42,7 @@ public class ObjectBuilder<T> implements ConstrainableBuilder<T> {
 	 */
 	@Override
 	public T build() {
-		T object = create();
-		callSetters(object);
-		callMethods(object);
-		return object;
+		return builder.build();
 	}
 
-	protected void callMethods(T object) throws JDGenRuntimeException {
-		try {
-			for (MethodInvoker<T> method : implemantation.getMethods()) {
-				method.invoke(object);
-			}
-		} catch (IllegalAccessException | IllegalArgumentException
-			| InvocationTargetException e) {
-			throw new JDGenRuntimeException(e);
-		}
-	}
-
-	protected T create() throws JDGenRuntimeException {
-		try {
-			T object = implemantation.getConstructor().invoke();
-
-			return object;
-		} catch (InstantiationException | IllegalAccessException
-			| IllegalArgumentException | InvocationTargetException
-			| NoSuchMethodException e) {
-			throw new JDGenRuntimeException(e);
-		}
-	}
-
-	protected void callSetters(T object) throws JDGenRuntimeException {
-		try {
-			for (MethodInvoker<T> setter : implemantation.getSetters()) {
-				setter.invoke(object);
-			}
-		} catch (IllegalAccessException | IllegalArgumentException
-			| InvocationTargetException e) {
-			throw new JDGenRuntimeException(e);
-		}
-	}
 }

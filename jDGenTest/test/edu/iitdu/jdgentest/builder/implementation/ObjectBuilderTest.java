@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import edu.iitdu.jdgen.builder.abstraction.Buildable;
-import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuilder;
+import edu.iitdu.jdgen.builder.abstraction.Constrainable;
 import edu.iitdu.jdgen.builder.implementation.ObjectBuilder;
 import edu.iitdu.jdgentest.testclasses.Product;
 import edu.iitdu.jdgentest.testclasses.Rectangle;
@@ -26,7 +26,7 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testBuild_Complex() {
-		ConstrainableBuilder<Rectangle> builder =
+		ObjectBuilder<Rectangle> builder =
 			new ObjectBuilder<>(Rectangle.class).construct(10, 20).execute(
 				"scale", 2.5);
 
@@ -57,7 +57,7 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testWith_MethodName() {
-		ConstrainableBuilder<Product> builder =
+		ObjectBuilder<Product> builder =
 			new ObjectBuilder<Product>(Product.class).execute("sell").execute(
 				"setProductId", 10);
 
@@ -69,7 +69,7 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testSet() {
-		ConstrainableBuilder<Product> builder =
+		ObjectBuilder<Product> builder =
 			new ObjectBuilder<>(Product.class).set("productId", 10);
 
 		Product product = builder.build();

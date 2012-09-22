@@ -3,15 +3,20 @@ package edu.iitdu.jdgen.builder.implementation;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuildable;
+import edu.iitdu.jdgen.builder.abstraction.Buildable;
+import edu.iitdu.jdgen.builder.abstraction.Constrainable;
 
-public class ListBuilder<T> implements ConstrainableBuildable<List<T>> {
+public class ListBuilder<T> implements Buildable<List<T>> {
 	private final int size;
-	private BuilderConstraintsImpl<T> constraints;
+	private Constrainable<T> constraints;
 
 	public ListBuilder(Class<T> type, int size) {
+		this(new ConstraintsImpl<>(type), size);
+	}
+	
+	public ListBuilder(Constrainable<T> constraints, int size) {
+		this.constraints = constraints;
 		this.size = size;
-		constraints = new BuilderConstraintsImpl<>(type);
 	}
 
 	@Override
@@ -24,24 +29,20 @@ public class ListBuilder<T> implements ConstrainableBuildable<List<T>> {
 
 		return objects;
 	}
-
-	@Override
+	
 	public ListBuilder<T> execute(String methodName,
 		Object... arguments) {
 		constraints.execute(methodName, arguments);
 		return this;
 	}
 
-	@Override
 	public ListBuilder<T> construct(Object... arguments) {
 		constraints.construct(arguments);
 		return this;
 	}
 
-	@Override
 	public <U> ListBuilder<T> set(String setterName, U value) {
 		constraints.set(setterName, value);
 		return this;
 	}
-
 }

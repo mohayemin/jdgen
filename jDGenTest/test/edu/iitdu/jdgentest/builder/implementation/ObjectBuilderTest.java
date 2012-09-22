@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import edu.iitdu.jdgen.builder.abstraction.Buildable;
-import edu.iitdu.jdgen.builder.abstraction.Constrainable;
 import edu.iitdu.jdgen.builder.implementation.ObjectBuilder;
 import edu.iitdu.jdgentest.testclasses.Product;
 import edu.iitdu.jdgentest.testclasses.Rectangle;

@@ -2,12 +2,14 @@ package edu.iitdu.jdgen.builder.implementation;
 
 import java.lang.reflect.InvocationTargetException;
 
+import edu.iitdu.jdgen.builder.abstraction.Buildable;
+import edu.iitdu.jdgen.builder.abstraction.Constrainable;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 
-public class BuilderImpl<T> {
-	private BuilderConstraintsImpl<T> constraints;
-	public BuilderImpl(BuilderConstraintsImpl<T> constraints) {
+public class BuilderImpl<T> implements Buildable<T>{
+	private Constrainable<T> constraints;
+	public BuilderImpl(Constrainable<T> constraints) {
 		this.constraints = constraints;
 	}
 	
@@ -17,7 +19,6 @@ public class BuilderImpl<T> {
 		callMethods(object);
 		return object;
 	}
-	
 
 	protected void callMethods(T object) throws JDGenRuntimeException {
 		try {
@@ -36,8 +37,7 @@ public class BuilderImpl<T> {
 
 			return object;
 		} catch (InstantiationException | IllegalAccessException
-			| IllegalArgumentException | InvocationTargetException
-			| NoSuchMethodException e) {
+			| IllegalArgumentException | InvocationTargetException e) {
 			throw new JDGenRuntimeException(e);
 		}
 	}

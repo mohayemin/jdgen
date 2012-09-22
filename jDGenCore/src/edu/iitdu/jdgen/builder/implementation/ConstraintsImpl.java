@@ -4,71 +4,83 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.iitdu.jdgen.builder.abstraction.Constrainable;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 import edu.iitdu.jdgen.reflection.ConstructorInvoker;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 import edu.iitdu.jdgen.util.MethodUtils;
 
-public class BuilderConstraintsImpl<T> {
+public class ConstraintsImpl<T> implements Constrainable<T>{
 	private ConstructorInvoker<T> constructor;
 	private List<MethodInvoker<T>> methods;
 	private List<MethodInvoker<T>> setters;
 
 	private Class<T> type;
 
-	public BuilderConstraintsImpl(Class<T> type) {
+	public ConstraintsImpl(Class<T> type) {
 		this.type = type;
 
 		methods = new LinkedList<>();
 		setters = new LinkedList<>();
 	}
 
-	public void construct(Object... arguments) {
+	@Override
+	public Constrainable<T> construct(Object... arguments) {
 
 		try {
 			ConstructorInvoker<T> constructor =
 				new ConstructorInvoker<T>(type, arguments);
 			this.constructor = constructor;
+			
+			return this;
 		} catch (NoSuchMethodException e) {
 			throw new JDGenRuntimeException(e);
 		}
 	}
 
-	public void execute(String methodName, Object... arguments) {
+	public Constrainable<T> execute(String methodName, Object... arguments) {
 		try {
 			MethodInvoker<T> invoker =
-				new MethodInvoker<T>(type, methodName, arguments);
+				new MethodInvoker<>(type, methodName, arguments);
 
 			methods.add(invoker);
+			return this;
 		} catch (NoSuchMethodException e) {
-			new JDGenRuntimeException(e);
+			throw new JDGenRuntimeException(e);
 		}
-
 	}
 
-	public <U> void set(String setterName, U value) {
+	public <U> Constrainable<T> set(String setterName, U value) {
 
 		try {
 			Method setter = MethodUtils.findSetter(type, setterName);
 			MethodInvoker<T> setterInvoker = new MethodInvoker<>(setter, value);
 			setters.add(setterInvoker);
+			
+			return this;
 		} catch (NoSuchMethodException e) {
-			new JDGenRuntimeException(e);
+			throw new JDGenRuntimeException(e);
 		}
 	}
 
-	List<MethodInvoker<T>> getMethods() {
+	@Override
+	public List<MethodInvoker<T>> getMethods() {
 		return methods;
 	}
 
-	ConstructorInvoker<T> getConstructor() throws NoSuchMethodException {
+	public ConstructorInvoker<T> getConstructor() {
 		if (constructor == null) {
-			constructor = new ConstructorInvoker<T>(type.getConstructor());
+			try {
+				constructor = new ConstructorInvoker<T>(type.getConstructor());
+			} catch (NoSuchMethodException e) {
+				throw new JDGenRuntimeException(e);
+			}
 		}
+		
 		return constructor;
 	}
 
-	List<MethodInvoker<T>> getSetters() {
+	public List<MethodInvoker<T>> getSetters() {
 		return setters;
 	}
 

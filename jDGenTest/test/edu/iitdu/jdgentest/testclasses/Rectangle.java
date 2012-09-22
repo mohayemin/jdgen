@@ -51,4 +51,22 @@ public class Rectangle {
 	public Integer getHeight() {
 		return height;
 	}
+
+	public boolean equalToRectangle(Rectangle rect) {
+		return rect.height == height && rect.width == width;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Rectangle) {
+			return equalToRectangle((Rectangle) obj);
+		} else {
+			return super.equals(obj);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return width + " by " + height;
+	}
 }

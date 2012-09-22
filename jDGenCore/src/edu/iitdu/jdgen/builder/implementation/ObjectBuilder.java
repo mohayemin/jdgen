@@ -1,35 +1,36 @@
 package edu.iitdu.jdgen.builder.implementation;
 
+import edu.iitdu.jdgen.builder.abstraction.Buildable;
+import edu.iitdu.jdgen.builder.abstraction.Constrainable;
 import edu.iitdu.jdgen.builder.abstraction.ConstrainableBuildable;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 
 /**
  * @author Mohayeminul Islam
  */
-public class ObjectBuilder<T> implements ConstrainableBuildable<T>{
-	private BuilderConstraintsImpl<T> constraints;
-	private BuilderImpl<T> builder;
-
+public class ObjectBuilder<T> implements Buildable<T>{
+	private Constrainable<T> constraints;
+	
 	public ObjectBuilder(Class<T> type) {
-		constraints = new BuilderConstraintsImpl<>(type);
-		builder = new BuilderImpl<>(constraints);
+		this(new ConstraintsImpl<>(type));
 	}
 
-	@Override
+	public ObjectBuilder(Constrainable<T> constraints) {
+		this.constraints = constraints;
+	}
+	
 	public ObjectBuilder<T> execute(String methodName,
 		Object... arguments) throws JDGenRuntimeException {
 		constraints.execute(methodName, arguments);
 		return this;
 	}
 
-	@Override
 	public ObjectBuilder<T> construct(Object... arguments)
 		throws JDGenRuntimeException {
 		constraints.construct(arguments);
 		return this;
 	}
 
-	@Override
 	public <U> ObjectBuilder<T> set(String setterVariableName, U value) {
 		constraints.set(setterVariableName, value);
 		return this;
@@ -42,7 +43,7 @@ public class ObjectBuilder<T> implements ConstrainableBuildable<T>{
 	 */
 	@Override
 	public T build() {
+		BuilderImpl<T> builder = new BuilderImpl<>(constraints);
 		return builder.build();
 	}
-
 }

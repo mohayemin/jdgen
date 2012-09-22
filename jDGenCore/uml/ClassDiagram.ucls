@@ -1,0 +1,110 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" corner="BOTTOM_RIGHT" language="java" name="edu.iitdu.jdgen.builder.abstraction.Buildable" 
+    project="jDGenCore" file="/jDGenCore/src/edu/iitdu/jdgen/builder/abstraction/Buildable.java" binary="false">    
+    <position height="-1" width="-1" x="617" y="66"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <interface id="2" corner="BOTTOM_RIGHT" language="java" name="edu.iitdu.jdgen.builder.abstraction.Constrainable" 
+    project="jDGenCore" file="/jDGenCore/src/edu/iitdu/jdgen/builder/abstraction/Constrainable.java" binary="false">    
+    <position height="-1" width="-1" x="104" y="73"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="edu.iitdu.jdgen.builder.implementation.ListBuilder" 
+    project="jDGenCore" file="/jDGenCore/src/edu/iitdu/jdgen/builder/implementation/ListBuilder.java" binary="false">    
+    <position height="-1" width="-1" x="679" y="255"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="edu.iitdu.jdgen.builder.implementation.ObjectBuilder" 
+    project="jDGenCore" file="/jDGenCore/src/edu/iitdu/jdgen/builder/implementation/ObjectBuilder.java" binary="false">    
+    <position height="-1" width="-1" x="126" y="273"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" 
+    name="edu.iitdu.jdgen.builder.abstraction.ConstrainableBuildable" project="jDGenCore" 
+    file="/jDGenCore/src/edu/iitdu/jdgen/builder/abstraction/ConstrainableBuildable.java" binary="false">    
+    <position height="-1" width="-1" x="381" y="121"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="edu.iitdu.jdgen.builder.implementation.BuilderImpl" 
+    project="jDGenCore" file="/jDGenCore/src/edu/iitdu/jdgen/builder/implementation/BuilderImpl.java" binary="false">    
+    <position height="-1" width="-1" x="420" y="546"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="edu.iitdu.jdgen.builder.implementation.ConstraintsImpl" 
+    project="jDGenCore" file="/jDGenCore/src/edu/iitdu/jdgen/builder/implementation/ConstraintsImpl.java" binary="false">    
+    <position height="-1" width="-1" x="419" y="380"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <association id="8">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="9" name="constraints">        
+        <position height="13" width="55" x="255" y="306"/>      
+      </attribute>      
+      <multiplicity id="10" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="11">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="12" name="constraints"/>      
+      <multiplicity id="13" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="14">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="16">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="17" name="constraints">        
+        <position height="13" width="55" x="513" y="295"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="19">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="20">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="false"/>    
+    <operations public="true" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

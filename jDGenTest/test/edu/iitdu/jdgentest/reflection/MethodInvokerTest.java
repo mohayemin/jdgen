@@ -4,10 +4,13 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import org.junit.Test;
 
 import edu.iitdu.jdgen.reflection.MethodInvoker;
+import edu.iitdu.jdgen.util.MethodUtils;
+import edu.iitdu.jdgentest.testclasses.Rectangle;
 
 public class MethodInvokerTest {
 
@@ -49,4 +52,17 @@ public class MethodInvokerTest {
 		assertEquals('e', c);
 	}
 
+	@Test
+	public void testGetSetters() throws NoSuchMethodException{
+		Map<String, Method> actualSetters = MethodUtils.getSetters(Rectangle.class);
+		
+		Method setWidth = Rectangle.class.getMethod("setWidth", Integer.class);
+		Method setHeight = Rectangle.class.getMethod("setHeight", Integer.class);
+		
+		assertEquals(2, actualSetters.size());
+		assertTrue(actualSetters.containsKey(setWidth));
+		assertTrue(actualSetters.containsKey(setHeight));
+		
+		fail("no impl");
+	}
 }

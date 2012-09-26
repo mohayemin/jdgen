@@ -4,20 +4,20 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.iitdu.jdgen.builder.abstraction.Constrainable;
+import edu.iitdu.jdgen.builder.abstraction.Configurable;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 import edu.iitdu.jdgen.reflection.ConstructorInvoker;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 import edu.iitdu.jdgen.util.MethodUtils;
 
-public class ConstraintsImpl<T> implements Constrainable<T>{
+public class ConfigurationImpl<T> implements Configurable<T>{
 	private ConstructorInvoker<T> constructor;
 	private List<MethodInvoker<T>> methods;
 	private List<MethodInvoker<T>> setters;
 
 	private Class<T> type;
 
-	public ConstraintsImpl(Class<T> type) {
+	public ConfigurationImpl(Class<T> type) {
 		this.type = type;
 
 		methods = new LinkedList<>();
@@ -25,7 +25,7 @@ public class ConstraintsImpl<T> implements Constrainable<T>{
 	}
 
 	@Override
-	public Constrainable<T> construct(Object... arguments) {
+	public Configurable<T> construct(Object... arguments) {
 
 		try {
 			ConstructorInvoker<T> constructor =
@@ -38,7 +38,7 @@ public class ConstraintsImpl<T> implements Constrainable<T>{
 		}
 	}
 
-	public Constrainable<T> execute(String methodName, Object... arguments) {
+	public Configurable<T> execute(String methodName, Object... arguments) {
 		try {
 			MethodInvoker<T> invoker =
 				new MethodInvoker<>(type, methodName, arguments);
@@ -50,7 +50,7 @@ public class ConstraintsImpl<T> implements Constrainable<T>{
 		}
 	}
 
-	public <U> Constrainable<T> set(String setterName, U value) {
+	public <U> Configurable<T> set(String setterName, U value) {
 
 		try {
 			Method setter = MethodUtils.findSetter(type, setterName);

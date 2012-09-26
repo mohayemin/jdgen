@@ -1,6 +1,8 @@
 package edu.iitdu.jdgen.util;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MethodUtils {
 	public static Method findBestMatch(Class<?> type, String name,
@@ -64,4 +66,9 @@ public class MethodUtils {
 		return setter;
 	}
 
+	public static Map<String, Method> getSetters(Class<?> type){
+		Map<String, Method> setters = new HashMap<>();
+		
+		return setters;
+	}
 }

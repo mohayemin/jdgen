@@ -3,26 +3,29 @@ package edu.iitdu.jdgen.builder.implementation;
 import java.lang.reflect.InvocationTargetException;
 
 import edu.iitdu.jdgen.builder.abstraction.Buildable;
-import edu.iitdu.jdgen.builder.abstraction.Constrainable;
+import edu.iitdu.jdgen.builder.abstraction.Configurable;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 
 public class BuilderImpl<T> implements Buildable<T>{
-	private Constrainable<T> constraints;
-	public BuilderImpl(Constrainable<T> constraints) {
-		this.constraints = constraints;
+	private Configurable<T> configuration;
+	public BuilderImpl(Configurable<T> configuration) {
+		this.configuration = configuration;
 	}
 	
 	public T build(){
 		T object = create();
 		callSetters(object);
 		callMethods(object);
+		
+		
+		
 		return object;
 	}
 
 	protected void callMethods(T object) throws JDGenRuntimeException {
 		try {
-			for (MethodInvoker<T> method : constraints.getMethods()) {
+			for (MethodInvoker<T> method : configuration.getMethods()) {
 				method.invoke(object);
 			}
 		} catch (IllegalAccessException | IllegalArgumentException
@@ -33,7 +36,7 @@ public class BuilderImpl<T> implements Buildable<T>{
 
 	protected T create() throws JDGenRuntimeException {
 		try {
-			T object = constraints.getConstructor().invoke();
+			T object = configuration.getConstructor().invoke();
 
 			return object;
 		} catch (InstantiationException | IllegalAccessException
@@ -44,7 +47,7 @@ public class BuilderImpl<T> implements Buildable<T>{
 
 	protected void callSetters(T object) throws JDGenRuntimeException {
 		try {
-			for (MethodInvoker<T> setter : constraints.getSetters()) {
+			for (MethodInvoker<T> setter : configuration.getSetters()) {
 				setter.invoke(object);
 			}
 		} catch (IllegalAccessException | IllegalArgumentException

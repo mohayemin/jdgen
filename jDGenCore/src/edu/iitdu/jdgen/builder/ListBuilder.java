@@ -1,17 +1,17 @@
-package edu.iitdu.jdgen.builder.implementation;
+package edu.iitdu.jdgen.builder;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.iitdu.jdgen.builder.abstraction.Buildable;
-import edu.iitdu.jdgen.builder.abstraction.Configurable;
+import edu.iitdu.jdgen.configuration.Configurable;
+import edu.iitdu.jdgen.configuration.Configuration;
 
 public class ListBuilder<T> implements Buildable<List<T>> {
 	private final int size;
 	private Configurable<T> configuration;
 
 	public ListBuilder(Class<T> type, int size) {
-		this(new ConfigurationImpl<>(type), size);
+		this(new Configuration<>(type), size);
 	}
 	
 	public ListBuilder(Configurable<T> configuration, int size) {
@@ -23,7 +23,7 @@ public class ListBuilder<T> implements Buildable<List<T>> {
 	public List<T> build() {
 		List<T> objects = new LinkedList<>();
 		for (int i = 0; i < size; i++) {
-			BuilderImpl<T> builder = new BuilderImpl<>(configuration);
+			Builder<T> builder = new Builder<>(configuration);
 			objects.add(builder.build());
 		}
 

@@ -1,7 +1,7 @@
-package edu.iitdu.jdgen.builder.implementation;
+package edu.iitdu.jdgen.builder;
 
-import edu.iitdu.jdgen.builder.abstraction.Buildable;
-import edu.iitdu.jdgen.builder.abstraction.Configurable;
+import edu.iitdu.jdgen.configuration.Configurable;
+import edu.iitdu.jdgen.configuration.Configuration;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 
 /**
@@ -11,7 +11,7 @@ public class ObjectBuilder<T> implements Buildable<T>{
 	private Configurable<T> configuration;
 	
 	public ObjectBuilder(Class<T> type) {
-		this(new ConfigurationImpl<>(type));
+		this(new Configuration<>(type));
 	}
 
 	public ObjectBuilder(Configurable<T> configuration) {
@@ -42,7 +42,7 @@ public class ObjectBuilder<T> implements Buildable<T>{
 	 */
 	@Override
 	public T build() {
-		BuilderImpl<T> builder = new BuilderImpl<>(configuration);
+		Builder<T> builder = new Builder<>(configuration);
 		return builder.build();
 	}
 }

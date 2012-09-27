@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.iitdu.jdgen.builder.implementation.ListBuilder;
+import edu.iitdu.jdgen.builder.ListBuilder;
 import edu.iitdu.jdgentest.testclasses.Rectangle;
 
 public class ListBuilderTest {

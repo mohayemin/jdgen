@@ -1,23 +1,22 @@
-package edu.iitdu.jdgen.builder.implementation;
+package edu.iitdu.jdgen.configuration;
 
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.iitdu.jdgen.builder.abstraction.Configurable;
 import edu.iitdu.jdgen.exception.JDGenRuntimeException;
 import edu.iitdu.jdgen.reflection.ConstructorInvoker;
 import edu.iitdu.jdgen.reflection.MethodInvoker;
 import edu.iitdu.jdgen.util.MethodUtils;
 
-public class ConfigurationImpl<T> implements Configurable<T>{
+public class Configuration<T> implements Configurable<T>{
 	private ConstructorInvoker<T> constructor;
 	private List<MethodInvoker<T>> methods;
 	private List<MethodInvoker<T>> setters;
 
 	private Class<T> type;
 
-	public ConfigurationImpl(Class<T> type) {
+	public Configuration(Class<T> type) {
 		this.type = type;
 
 		methods = new LinkedList<>();

@@ -1,4 +1,4 @@
-package edu.iitdu.jdgen.builder.abstraction;
+package edu.iitdu.jdgen.configuration;
 
 import java.util.List;
 

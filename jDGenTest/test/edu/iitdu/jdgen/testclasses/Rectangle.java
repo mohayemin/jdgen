@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.testclasses;
+package edu.iitdu.jdgen.testclasses;
 
 /**
  * No methods in this class call other methods of this class.

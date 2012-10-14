@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.util;
+package edu.iitdu.jdgen.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,9 +9,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import edu.iitdu.jdgen.testclasses.Employee;
+import edu.iitdu.jdgen.testclasses.Person;
 import edu.iitdu.jdgen.util.ReflectionUtils;
-import edu.iitdu.jdgentest.testclasses.Employee;
-import edu.iitdu.jdgentest.testclasses.Person;
 
 public class ReflectionUtilsTest {
 	private static Class<?> personType;

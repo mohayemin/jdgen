@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.util;
+package edu.iitdu.jdgen.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,8 +8,8 @@ import java.lang.reflect.Method;
 
 import org.junit.Test;
 
+import edu.iitdu.jdgen.testclasses.MethodUtilTestGinipig;
 import edu.iitdu.jdgen.util.MethodUtils;
-import edu.iitdu.jdgentest.testclasses.MethodUtilTestGinipig;
 
 public class MethodUtilsTest {
 

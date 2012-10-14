@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.reflection;
+package edu.iitdu.jdgen.reflection;
 
 import static org.junit.Assert.*;
 
@@ -9,8 +9,8 @@ import java.util.Map;
 import org.junit.Test;
 
 import edu.iitdu.jdgen.reflection.MethodInvoker;
+import edu.iitdu.jdgen.testclasses.Rectangle;
 import edu.iitdu.jdgen.util.MethodUtils;
-import edu.iitdu.jdgentest.testclasses.Rectangle;
 
 public class MethodInvokerTest {
 

@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.testclasses;
+package edu.iitdu.jdgen.testclasses;
 
 public class Product {
 	private int productId;

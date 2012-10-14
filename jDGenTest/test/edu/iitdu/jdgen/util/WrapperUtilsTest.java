@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.util;
+package edu.iitdu.jdgen.util;
 
 import static org.junit.Assert.*;
 

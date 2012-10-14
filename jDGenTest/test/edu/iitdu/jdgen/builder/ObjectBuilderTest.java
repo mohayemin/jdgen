@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.builder.implementation;
+package edu.iitdu.jdgen.builder;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -7,15 +7,17 @@ import org.junit.Test;
 
 import edu.iitdu.jdgen.builder.Buildable;
 import edu.iitdu.jdgen.builder.ObjectBuilder;
-import edu.iitdu.jdgentest.testclasses.Product;
-import edu.iitdu.jdgentest.testclasses.Rectangle;
+import edu.iitdu.jdgen.configuration.Configurable;
+import edu.iitdu.jdgen.configuration.Configuration;
+import edu.iitdu.jdgen.testclasses.Product;
+import edu.iitdu.jdgen.testclasses.Rectangle;
 
 public class ObjectBuilderTest {
 
 	@Test
 	public void testBuild_Simple() {
 		ObjectBuilder<Product> builder =
-			new ObjectBuilder<>(Product.class);
+			new ObjectBuilder<>(new Configuration<>(Product.class));
 
 		Product product = builder.build();
 
@@ -25,20 +27,24 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testBuild_Complex() {
-		ObjectBuilder<Rectangle> builder =
-			new ObjectBuilder<>(Rectangle.class).construct(10, 20).execute(
+		Configurable<Rectangle> configuration =
+			new Configuration<>(Rectangle.class).construct(10, 20).execute(
 				"scale", 2.5);
+		ObjectBuilder<Rectangle> builder =
+			new ObjectBuilder<>(configuration);
 
-		//System.out.println("**First Build**");
+		// System.out.println("**First Build**");
 		Rectangle rect = builder.build();
 		assertEquals((Integer) 25, rect.getWidth());
 		assertEquals((Integer) 50, rect.getHeight());
 
-		//System.out.println("**Second Build**");
+		// System.out.println("**Second Build**");
+		configuration = new Configuration<>(Rectangle.class).construct(10)
+			.execute("resize", 12, 20).execute("scale", .5)
+			.set("width", 30);
+
 		builder =
-			new ObjectBuilder<>(Rectangle.class).construct(10)
-				.execute("resize", 12, 20).execute("scale", .5)
-				.set("width", 30);
+			new ObjectBuilder<>(configuration);
 
 		rect = builder.build();
 		assertEquals((Integer) 6, rect.getWidth());
@@ -47,8 +53,11 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testConstruct_Arguments() {
+		Configurable<Product> configuration =
+			new Configuration<>(Product.class).construct(5);
+
 		Buildable<Product> builder =
-			new ObjectBuilder<>(Product.class).construct(5);
+			new ObjectBuilder<>(configuration);
 
 		Product product = builder.build();
 		assertEquals(5, product.getProductId());
@@ -56,8 +65,11 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testWith_MethodName() {
+		Configurable<Product> configuration =
+			new Configuration<>(Product.class).execute("sell").execute(
+				"setProductId", 10);
 		ObjectBuilder<Product> builder =
-			new ObjectBuilder<Product>(Product.class).execute("sell").execute(
+			new ObjectBuilder<Product>(configuration).execute("sell").execute(
 				"setProductId", 10);
 
 		Product product = builder.build();
@@ -68,8 +80,11 @@ public class ObjectBuilderTest {
 
 	@Test
 	public void testSet() {
+		Configurable<Product> configuration =
+			new Configuration<>(Product.class).set("productId", 10);
+
 		ObjectBuilder<Product> builder =
-			new ObjectBuilder<>(Product.class).set("productId", 10);
+			new ObjectBuilder<>(configuration);
 
 		Product product = builder.build();
 

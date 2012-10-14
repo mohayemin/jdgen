@@ -1,4 +1,4 @@
-package edu.iitdu.jdgentest.testclasses;
+package edu.iitdu.jdgen.testclasses;
 
 public interface MethodUtilTestGinipig {
 	public void mixedParameters(int i1, Integer i2);

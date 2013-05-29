@@ -10,7 +10,7 @@ public class BuilderTest {
 	@Test
 	public void buildDefault() throws InstantiationException, IllegalAccessException {
 		Builder<Primitive> primitiveBuilder = new Builder<Primitive>(Primitive.class);
-		Primitive actual = primitiveBuilder.Build();
+		Primitive actual = primitiveBuilder.build();
 
 		assertEquals(0, (byte)actual.getB());
 		assertEquals(false, actual.getBool());

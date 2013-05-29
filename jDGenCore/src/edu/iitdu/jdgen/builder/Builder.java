@@ -1,5 +1,7 @@
 package edu.iitdu.jdgen.builder;
 
+import java.util.List;
+
 public class Builder<T> implements IBuilder<T> {
 	private Class<T> type;
 	
@@ -8,7 +10,16 @@ public class Builder<T> implements IBuilder<T> {
 	}
 	
 	@Override
-	public T Build() throws InstantiationException, IllegalAccessException {
-		return type.newInstance();
+	public T build() throws InstantiationException, IllegalAccessException {
+		T instance =type.newInstance();
+		
+		
+		
+		return instance;
+	}
+
+	@Override
+	public List<T> buildList() {
+		return null;
 	}
 }

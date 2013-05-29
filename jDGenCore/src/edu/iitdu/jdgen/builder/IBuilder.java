@@ -5,5 +5,5 @@ package edu.iitdu.jdgen.builder;
  * @author Mohayeminul Islam
  */
 public interface IBuilder<T> {
-	public T Build();
+	public T Build() throws InstantiationException, IllegalAccessException;
 }

@@ -64,4 +64,25 @@ public class MethodInfoTest {
 		
 		assertTrue(methodInfo.isSetter());
 	}
+	
+	@Test
+	public void getFirstParameterType_hasOneParameter() throws SecurityException, NoSuchMethodException{
+		MethodInfo methodInfo = new MethodInfo(type.getMethod("setVal", Long.class));
+		
+		assertTrue(methodInfo.getFirstParameterType().equals(Long.class));
+	}
+	
+	@Test
+	public void getFirstParameterType_hasTwoParameters() throws SecurityException, NoSuchMethodException{
+		MethodInfo methodInfo = new MethodInfo(type.getMethod("setVal", Integer.class, Long.class));
+		
+		assertTrue(methodInfo.getFirstParameterType().equals(Integer.class));
+	}
+	
+	@Test
+	public void getFirstParameterType_hasNoParameter() throws SecurityException, NoSuchMethodException{
+		MethodInfo methodInfo = new MethodInfo(type.getMethod("setVal"));
+		
+		assertTrue(methodInfo.getFirstParameterType().equals(Void.class));
+	}
 }

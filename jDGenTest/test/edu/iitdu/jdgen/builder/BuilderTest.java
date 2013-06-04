@@ -2,13 +2,15 @@ package edu.iitdu.jdgen.builder;
 
 import static org.junit.Assert.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Test;
 
 import edu.iitdu.jdgen.dummy.Primitive;
 
 public class BuilderTest {
 	@Test
-	public void buildDefault() throws InstantiationException, IllegalAccessException {
+	public void buildDefault_Primitive() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Builder<Primitive> primitiveBuilder = new Builder<Primitive>(Primitive.class);
 		Primitive actual = primitiveBuilder.build();
 
@@ -21,4 +23,6 @@ public class BuilderTest {
 		assertEquals(0L, (long) actual.getL());
 		assertEquals(0, (short)actual.getS());
 	}
+	
+	
 }

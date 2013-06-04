@@ -4,12 +4,12 @@ public interface MethodTestGuineaPig {
 	/**
 	 * Not setter
 	 */
-	public void set(int val);
+	public void set(Integer val);
 
 	/**
 	 * Not setter
 	 */
-	public void notASetter(int val);
+	public void notASetter(Integer val);
 
 	/**
 	 * Not setter
@@ -19,15 +19,20 @@ public interface MethodTestGuineaPig {
 	/**
 	 * Not setter
 	 */
-	public void setval(int val);
+	public void setVal(Integer val, Long secondVal);
+	
+	/**
+	 * Not setter
+	 */
+	public void setval(Integer val);
 
 	/**
 	 * Setter
 	 */
-	public void setVal(int val);
+	public void setVal(Integer val);
 
 	/**
 	 * Setter
 	 */
-	public long setVal(long val);
+	public long setVal(Long val);
 }

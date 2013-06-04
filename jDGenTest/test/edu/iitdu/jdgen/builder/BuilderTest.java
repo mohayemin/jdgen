@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Test;
 
+import edu.iitdu.jdgen.dummy.Circle;
 import edu.iitdu.jdgen.dummy.Primitive;
 
 public class BuilderTest {
@@ -24,5 +25,13 @@ public class BuilderTest {
 		assertEquals(0, (short)actual.getS());
 	}
 	
-	
+	@Test
+	public void buildDefault_NonPrimitive() throws InstantiationException, IllegalAccessException, InvocationTargetException{
+		Builder<Circle> nonPrimitiveBuilder = new Builder<Circle>(Circle.class);
+		Circle actual = nonPrimitiveBuilder.build();
+		
+		assertEquals(0, (int)actual.getRadius());
+		assertEquals(0, (int)actual.getLeftTop().getX());
+		assertEquals(0, (int)actual.getLeftTop().getY());
+	}
 }

@@ -13,7 +13,7 @@ public class DefaultValueProvider {
 	}
 	
 	private static HashMap<Class<?>, Object> defaultValues(){
-		HashMap<Class<?>, Object> defaultValues = new HashMap<>();
+		HashMap<Class<?>, Object> defaultValues = new HashMap<Class<?>, Object>();
 		
 		defaultValues.put(Boolean.class, false);
 		defaultValues.put(Byte.class, (byte)0);

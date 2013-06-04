@@ -14,5 +14,5 @@ public interface IConfiguration<T> {
 	public IConfiguration<T> construct(Object... arguments);
 	
 	public List<IMethodInvoker<T>> getMethods();
-	public List<IConstructorInvoker<T>> getConstructors();
+	public IConstructorInvoker<T> getConstructor();
 }

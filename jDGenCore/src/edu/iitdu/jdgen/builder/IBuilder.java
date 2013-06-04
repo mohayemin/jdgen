@@ -8,7 +8,7 @@ import java.util.List;
  * @author Mohayeminul Islam
  */
 public interface IBuilder<T> {
-	public T build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	public T build() throws InstantiationException, IllegalAccessException, InvocationTargetException;
 	
 	public List<T> buildList();
 }

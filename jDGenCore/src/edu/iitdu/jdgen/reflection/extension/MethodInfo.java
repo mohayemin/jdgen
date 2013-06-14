@@ -46,4 +46,8 @@ public class MethodInfo {
 
 		return paramType;
 	}
+	
+	public Method getMethod() {
+		return method;
+	}
 }

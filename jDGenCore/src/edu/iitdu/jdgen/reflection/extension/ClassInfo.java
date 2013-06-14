@@ -6,15 +6,16 @@ import java.util.List;
 
 public class ClassInfo<T> {
 	private Class<T> type;
-	private List<Method> setters;
+	private List<MethodInfo> setters;
 	
 	public ClassInfo(Class<T> type) {
 		this.type = type;
 	}
 	
-	public Iterable<Method> setters() {
+	public Iterable<MethodInfo> getSetters() {
+		
 		if (setters == null) {
-			setters = new ArrayList<Method>();
+			setters = new ArrayList<MethodInfo>();
 
 			for (Method method : type.getMethods()) {
 				
@@ -22,9 +23,5 @@ public class ClassInfo<T> {
 		}
 		
 		return setters;
-	}
-
-	public static boolean isSetter(Method method) {
-		return false;
-	}
+	}	
 }

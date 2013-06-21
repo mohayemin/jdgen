@@ -1,10 +1,6 @@
 package edu.iitdu.jdgen.reflection.extension;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 

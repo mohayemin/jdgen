@@ -9,10 +9,10 @@ import org.junit.Test;
 import edu.iitdu.jdgen.dummy.Circle;
 import edu.iitdu.jdgen.dummy.Primitive;
 
-public class BuilderTest {
+public class ObjectBuilderTest {
 	@Test
 	public void buildDefault_Primitive() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Builder<Primitive> primitiveBuilder = new Builder<Primitive>(Primitive.class);
+		IObjectBuilder<Primitive> primitiveBuilder = new ObjectBuilder<Primitive>(Primitive.class);
 		Primitive actual = primitiveBuilder.buildObject();
 
 		assertEquals(0, (byte)actual.getB());
@@ -27,16 +27,11 @@ public class BuilderTest {
 	
 	@Test
 	public void buildDefault_NonPrimitive() throws InstantiationException, IllegalAccessException, InvocationTargetException{
-		Builder<Circle> nonPrimitiveBuilder = new Builder<Circle>(Circle.class);
+		IObjectBuilder<Circle> nonPrimitiveBuilder = new ObjectBuilder<Circle>(Circle.class);
 		Circle actual = nonPrimitiveBuilder.buildObject();
 		
 		assertEquals(0, (int)actual.getRadius());
 		assertEquals(0, (int)actual.getLeftTop().getX());
 		assertEquals(0, (int)actual.getLeftTop().getY());
-	}
-	
-	@Test
-	public void buildDefaultList() {
-		
 	}
 }

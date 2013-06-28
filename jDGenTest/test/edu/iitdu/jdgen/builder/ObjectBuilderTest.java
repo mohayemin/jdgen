@@ -2,8 +2,6 @@ package edu.iitdu.jdgen.builder;
 
 import static org.junit.Assert.assertEquals;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.junit.Test;
 
 import edu.iitdu.jdgen.dummy.Circle;
@@ -11,7 +9,7 @@ import edu.iitdu.jdgen.dummy.Primitive;
 
 public class ObjectBuilderTest {
 	@Test
-	public void buildDefault_Primitive() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void buildDefault_Primitive() {
 		IObjectBuilder<Primitive> primitiveBuilder = new ObjectBuilder<Primitive>(Primitive.class);
 		Primitive actual = primitiveBuilder.buildObject();
 
@@ -26,7 +24,7 @@ public class ObjectBuilderTest {
 	}
 	
 	@Test
-	public void buildDefault_NonPrimitive() throws InstantiationException, IllegalAccessException, InvocationTargetException{
+	public void buildDefault_NonPrimitive() {
 		IObjectBuilder<Circle> nonPrimitiveBuilder = new ObjectBuilder<Circle>(Circle.class);
 		Circle actual = nonPrimitiveBuilder.buildObject();
 		

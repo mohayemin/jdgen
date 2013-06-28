@@ -1,10 +1,9 @@
 package edu.iitdu.jdgen.builder;
 
-import java.lang.reflect.InvocationTargetException;
+import edu.iitdu.jdgen.exception.JDGenException;
 
 public interface IObjectBuilder<T> {
 
-	public abstract T buildObject() throws InstantiationException,
-			IllegalAccessException, InvocationTargetException;
+	public abstract T buildObject() throws JDGenException;
 
 }

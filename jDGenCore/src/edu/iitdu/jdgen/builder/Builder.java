@@ -1,6 +1,5 @@
 package edu.iitdu.jdgen.builder;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class Builder<T> implements IBuilder<T> {
@@ -17,12 +16,12 @@ public class Builder<T> implements IBuilder<T> {
 	}
 
 	@Override
-	public T buildObject() throws InstantiationException, IllegalAccessException, InvocationTargetException {
+	public T buildObject() {
 		return objectBuilder.buildObject();
 	}
 
 	@Override
 	public List<T> buildList() {
-		return null;
+		return listBuilder.buildList();
 	}
 }

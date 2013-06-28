@@ -1,6 +1,5 @@
 package edu.iitdu.jdgen.reflection;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,15 +7,15 @@ import edu.iitdu.jdgen.builder.Builder;
 
 public class DefaultValueProvider implements IDefaultValueProvider {
 	private static Map<Class<?>, Object> defaultValues = defaultValues();
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T getValueFor(Class<T> type) throws InstantiationException,
-			IllegalAccessException, InvocationTargetException {
+	public <T> T getValueFor(Class<T> type) {
 		T defaultValue = (T) defaultValues.get(type);
 		if (defaultValue == null) {
 			Builder<T> builder = new Builder<T>(type);
-			defaultValue = builder.buildObject();
+			
+			defaultValue = builder.buildObject();			
 		}
 		return defaultValue;
 	}

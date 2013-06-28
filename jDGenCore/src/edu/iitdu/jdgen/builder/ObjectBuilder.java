@@ -1,7 +1,6 @@
 package edu.iitdu.jdgen.builder;
 
-import java.lang.reflect.InvocationTargetException;
-
+import edu.iitdu.jdgen.exception.JDGenException;
 import edu.iitdu.jdgen.reflection.DefaultValueProvider;
 import edu.iitdu.jdgen.reflection.IDefaultValueProvider;
 import edu.iitdu.jdgen.reflection.extension.ClassInfo;
@@ -18,13 +17,21 @@ public class ObjectBuilder<T>  implements IObjectBuilder<T>{
 	}
 	
 	@Override
-	public T buildObject() throws InstantiationException,
-			IllegalAccessException, InvocationTargetException {
-		T instance = type.newInstance();
+	public T buildObject() {
+		T instance;
+		try {
+			instance = type.newInstance();
+		} catch (Exception e) {
+			throw new JDGenException("Exception occured when instanciating object", e);
+		}
 		
 		ClassInfo<T> classInfo = new ClassInfo<T>(type);
 		for (MethodInfo setterInfo : classInfo.getSetters()) {
-			setterInfo.getMethod().invoke(instance, defaultValueProvider.getValueFor(setterInfo.getFirstParameterType()));
+			try {
+				setterInfo.getMethod().invoke(instance, defaultValueProvider.getValueFor(setterInfo.getFirstParameterType()));
+			} catch (Exception e) {
+				throw new JDGenException("Exception occured when invoking setter: " + setterInfo, e);
+			}
 		}
 				
 		return instance;

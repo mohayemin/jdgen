@@ -1,7 +1,8 @@
 package edu.iitdu.jdgen.reflection;
 
-import java.lang.reflect.InvocationTargetException;
+import edu.iitdu.jdgen.exception.JDGenException;
+
 
 public interface IDefaultValueProvider {
-	public <T> T getValueFor(Class<T> type) throws InstantiationException, IllegalAccessException, InvocationTargetException;
+	public <T> T getValueFor(Class<T> type) throws JDGenException;
 }

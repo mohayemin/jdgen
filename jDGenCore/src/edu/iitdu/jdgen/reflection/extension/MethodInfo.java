@@ -13,22 +13,28 @@ public class MethodInfo {
 
 	public boolean isSetter() {
 		if (isSetter == null) {
-			isSetter = false;
-
-			if (getParameterCount() == 1) {
-				String name = method.getName();
-				if (name.length() >= 4) {
-					if (name.startsWith("set")) {
-						String suffix = name.substring(3);
-						if (Character.isUpperCase(suffix.charAt(0))) {
-							isSetter = true;
-						}
-					}
-				}
-			}
+			isSetter = hasExactlyOneParameter() & nameLengthAtLeastFour()
+					& nameStartsWithSet() & suffixStartsWithUpperCase();
 		}
 
 		return isSetter;
+	}
+
+	private boolean suffixStartsWithUpperCase() {
+		String suffix = method.getName().substring(3);
+		return Character.isUpperCase(suffix.charAt(0));
+	}
+
+	private boolean nameStartsWithSet() {
+		return method.getName().startsWith("set");
+	}
+
+	private boolean nameLengthAtLeastFour() {
+		return method.getName().length() >= 4;
+	}
+
+	private boolean hasExactlyOneParameter() {
+		return getParameterCount() == 1;
 	}
 
 	private int getParameterCount() {
@@ -66,9 +72,10 @@ public class MethodInfo {
 	}
 
 	public boolean equals(MethodInfo anotherMethodInfo) {
-		return anotherMethodInfo != null && this.method.equals(anotherMethodInfo.method);
+		return anotherMethodInfo != null
+				&& this.method.equals(anotherMethodInfo.method);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return method.hashCode();

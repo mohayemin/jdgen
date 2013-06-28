@@ -22,7 +22,7 @@ public class ObjectBuilder<T>  implements IObjectBuilder<T>{
 		try {
 			instance = type.newInstance();
 		} catch (Exception e) {
-			throw new JDGenException("Exception occured when instanciating object", e);
+			throw new JDGenException("Exception occurred when instantiating object", e);
 		}
 		
 		ClassInfo<T> classInfo = new ClassInfo<T>(type);
@@ -30,7 +30,7 @@ public class ObjectBuilder<T>  implements IObjectBuilder<T>{
 			try {
 				setterInfo.getMethod().invoke(instance, defaultValueProvider.getValueFor(setterInfo.getFirstParameterType()));
 			} catch (Exception e) {
-				throw new JDGenException("Exception occured when invoking setter: " + setterInfo, e);
+				throw new JDGenException("Exception occurred when invoking setter: " + setterInfo, e);
 			}
 		}
 				

@@ -12,6 +12,10 @@ public class ClassInfo<T> {
 		this.type = type;
 	}
 	
+	public T newInstance() throws InstantiationException, IllegalAccessException {
+		return type.newInstance();
+	}
+	
 	public Iterable<MethodInfo> getSetters() {		
 		if (setters == null) {
 			generateSetters();

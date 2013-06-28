@@ -32,22 +32,45 @@ public class MethodInfo {
 	}
 
 	private int getParameterCount() {
-		parameterCount =
-			parameterCount != null ? parameterCount : method
+		parameterCount = parameterCount != null ? parameterCount : method
 				.getParameterTypes().length;
 
 		return parameterCount;
 	}
 
 	public Class<?> getFirstParameterType() {
-		Class<?> paramType =
-			getParameterCount() > 0 ? method.getParameterTypes()[0]
-				: Void.class;
+		Class<?> paramType = getParameterCount() > 0 ? method
+				.getParameterTypes()[0] : Void.class;
 
 		return paramType;
 	}
-	
+
 	public Method getMethod() {
 		return method;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals;
+		if (this == obj) {
+			equals = true;
+		} else if (obj == null || getClass() != obj.getClass()) {
+			equals = false;
+		} else if (equals((MethodInfo) obj)) {
+			equals = true;
+		} else {
+			equals = super.equals(obj);
+		}
+
+		return equals;
+	}
+
+	public boolean equals(MethodInfo anotherMethodInfo) {
+		return anotherMethodInfo != null && this.method.equals(anotherMethodInfo.method);
+	}
+	
+	@Override
+	public int hashCode() {
+		return method.hashCode();
 	}
 }

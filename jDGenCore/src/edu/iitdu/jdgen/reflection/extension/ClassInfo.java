@@ -12,16 +12,22 @@ public class ClassInfo<T> {
 		this.type = type;
 	}
 	
-	public Iterable<MethodInfo> getSetters() {
-		
+	public Iterable<MethodInfo> getSetters() {		
 		if (setters == null) {
-			setters = new ArrayList<MethodInfo>();
-
-			for (Method method : type.getMethods()) {
-				
-			}	
+			generateSetters();
 		}
 		
 		return setters;
+	}
+
+	private void generateSetters() {
+		setters = new ArrayList<MethodInfo>();
+
+		for (Method method : type.getMethods()) {
+			MethodInfo methodInfo = new MethodInfo(method);
+			if (methodInfo.isSetter()) {
+				setters.add(methodInfo);
+			}
+		}
 	}	
 }

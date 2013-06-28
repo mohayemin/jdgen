@@ -15,7 +15,7 @@ public class DefaultValueProvider {
 		T defaultValue = (T) defaultValues.get(type);
 		if (defaultValue == null) {
 			Builder<T> builder = new Builder<T>(type);
-			defaultValue = builder.build();
+			defaultValue = builder.buildObject();
 		}
 		return defaultValue;
 	}

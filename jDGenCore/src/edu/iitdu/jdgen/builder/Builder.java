@@ -15,7 +15,7 @@ public class Builder<T> implements IBuilder<T> {
 	}
 
 	@Override
-	public T build() throws InstantiationException, IllegalAccessException, InvocationTargetException {
+	public T buildObject() throws InstantiationException, IllegalAccessException, InvocationTargetException {
 		T instance = type.newInstance();
 		DefaultValueProvider defaultValueProvider = new DefaultValueProvider();
 		

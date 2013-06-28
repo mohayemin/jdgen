@@ -13,7 +13,7 @@ public class BuilderTest {
 	@Test
 	public void buildDefault_Primitive() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Builder<Primitive> primitiveBuilder = new Builder<Primitive>(Primitive.class);
-		Primitive actual = primitiveBuilder.build();
+		Primitive actual = primitiveBuilder.buildObject();
 
 		assertEquals(0, (byte)actual.getB());
 		assertEquals(false, actual.getBool());
@@ -28,10 +28,15 @@ public class BuilderTest {
 	@Test
 	public void buildDefault_NonPrimitive() throws InstantiationException, IllegalAccessException, InvocationTargetException{
 		Builder<Circle> nonPrimitiveBuilder = new Builder<Circle>(Circle.class);
-		Circle actual = nonPrimitiveBuilder.build();
+		Circle actual = nonPrimitiveBuilder.buildObject();
 		
 		assertEquals(0, (int)actual.getRadius());
 		assertEquals(0, (int)actual.getLeftTop().getX());
 		assertEquals(0, (int)actual.getLeftTop().getY());
+	}
+	
+	@Test
+	public void buildDefaultList() {
+		
 	}
 }

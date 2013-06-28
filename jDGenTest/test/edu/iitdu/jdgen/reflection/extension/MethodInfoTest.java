@@ -1,7 +1,7 @@
 package edu.iitdu.jdgen.reflection.extension;
 
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -84,5 +84,32 @@ public class MethodInfoTest {
 		MethodInfo methodInfo = new MethodInfo(type.getMethod("setVal"));
 		
 		assertTrue(methodInfo.getFirstParameterType().equals(Void.class));
+	}
+	
+	@Test
+	public void equalsAndHash_equal() throws SecurityException, NoSuchMethodException{
+		MethodInfo methodInfo1 = new MethodInfo(type.getMethod("setVal", Integer.class, Long.class));
+		MethodInfo methodInfo2 = new MethodInfo(type.getMethod("setVal", Integer.class, Long.class));
+		
+		assertTrue(methodInfo1.equals(methodInfo2));
+		assertTrue(methodInfo1.hashCode() == methodInfo2.hashCode());
+	}
+	
+	@Test
+	public void equalsAndHash_unequal_sameType() throws SecurityException, NoSuchMethodException{
+		MethodInfo methodInfo1 = new MethodInfo(type.getMethod("setVal", Integer.class, Long.class));
+		MethodInfo methodInfo2 = new MethodInfo(type.getMethod("notASetter", Integer.class));
+		
+		assertFalse(methodInfo1.equals(methodInfo2));
+		assertFalse(methodInfo1.hashCode() == methodInfo2.hashCode());
+	}
+	
+	@Test
+	public void equalsAndHash_unequal_differentType() throws SecurityException, NoSuchMethodException {
+		MethodInfo methodInfo1 = new MethodInfo(type.getMethod("setVal", Integer.class, Long.class));
+		String otherObject = "Hello World";
+		
+		assertFalse(methodInfo1.equals(otherObject));
+		assertFalse(methodInfo1.hashCode() == otherObject.hashCode());
 	}
 }
